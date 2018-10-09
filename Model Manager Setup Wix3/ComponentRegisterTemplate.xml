@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Component Id="CIMModelManager.dll" Guid="{9DCCE8E7-FDF6-49C5-BC9C-7A5A339B7502}">
+                <Class Id="{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}" Context="InprocServer32" Description="CIMModelManager.Main" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="CIMModelManager.Main" Description="CIMModelManager.Main" />
+                </Class>
+                <File Id="CIMModelManager.dll" KeyPath="yes" Source="SourceDir\CIMModelManager.dll" />
+                <ProgId Id="Record" />
+                <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32\1.0.0.0" Name="Class" Value="CIMModelManager.Main" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32\1.0.0.0" Name="Assembly" Value="CIMModelManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32\1.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32\1.0.0.0" Name="CodeBase" Value="file:///[#CIMModelManager.dll]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32" Name="Class" Value="CIMModelManager.Main" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32" Name="Assembly" Value="CIMModelManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32" Name="CodeBase" Value="file:///[#CIMModelManager.dll]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{DD4F8EE3-2676-3DCE-9BCB-76560174AE8D}\1.0.0.0" Name="Class" Value="Microsoft.Office.Interop.Excel.XlSaveAsAccessMode" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{DD4F8EE3-2676-3DCE-9BCB-76560174AE8D}\1.0.0.0" Name="Assembly" Value="CIMModelManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{DD4F8EE3-2676-3DCE-9BCB-76560174AE8D}\1.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{DD4F8EE3-2676-3DCE-9BCB-76560174AE8D}\1.0.0.0" Name="CodeBase" Value="file:///[#CIMModelManager.dll]" Type="string" Action="write" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+</Wix>

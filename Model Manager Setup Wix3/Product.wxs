@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"    xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="*" Name="CIM Model Manager EA Plugin" Language="1033" Version="1.0.0.3" Manufacturer="Martin E. Miller" UpgradeCode="628a7df7-8e26-41da-aec8-98cbfc05a658">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"   Platform="x64"  InstallPrivileges="elevated" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+    <WixVariable Id="WixUILicenseRtf" Value="..\CIM Model Manager\License.txt" />
+    <WixVariable Id="WixUISupportPerUser" Value="1" />
+
+    <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
+    <!-- Prerequisites -->
+    <Condition Message="This application is only supported on x64 Windows 7, Windows Server 2008 R2, or higher.">
+      <![CDATA[Installed OR (VersionNT >= 601 AND VersionNT64) OR (VersionNT >= 600 AND VersionNT64 AND ServicePackLevel >= 2)]]> <!-- example -->
+    </Condition>
+
+    <!-->PropertyRef Id="WIX_IS_NETFRAMEWORK_462_OR_LATER_INSTALLED" />
+    <Condition Message="This application requires .NET Framework 4.7. Please install the .NET Framework then run this installer again."><![CDATA[Installed OR WIX_IS_NETFRAMEWORK_462_OR_LATER_INSTALLED]]></Condition-->
+
+    <Feature Id="ProductFeature" Title="CIM Model Manager" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="CIM Model Manager" />
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="RegistryEntries" Guid="2a4d250a-4db2-43a2-abe5-a2e28d0659e7" Win64='yes'>
+        <RegistryKey Root="HKLM"
+                     Key="Software\Sparx Systems\EAAddins\CIM Model Manager"
+              ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
+          <RegistryValue Type="string"  Value="CIMModelManager.Main" KeyPath="yes" />
+        </RegistryKey>
+      </Component>
+      <Component Id='CIMModelManager.dll' Guid='4cdbebc5-bfde-4e61-8685-9f19fd8c34eb' Win64='yes'>
+        <File Id='CIMModelManager.dll' Name='CIMModelManager.dll'  Source='..\CIM Model Manager\bin\Release\CIMModelManager.dll' KeyPath='yes' />
+
+        <Class Id="{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}" Context="InprocServer32" Description="CIMModelManager.Main" ThreadingModel="both" ForeignServer="mscoree.dll">
+          <ProgId Id="CIMModelManager.Main" Description="CIMModelManager.Main" />
+        </Class>
+        <ProgId Id="Record" />
+        <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32\1.0.0.0" Name="Class" Value="CIMModelManager.Main" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32\1.0.0.0" Name="Assembly" Value="CIMModelManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32\1.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32\1.0.0.0" Name="CodeBase" Value="file:///[#CIMModelManager.dll]" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32" Name="Class" Value="CIMModelManager.Main" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32" Name="Assembly" Value="CIMModelManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="CLSID\{65B0FBEB-C6DC-37AA-918D-A20699EDB44C}\InprocServer32" Name="CodeBase" Value="file:///[#CIMModelManager.dll]" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="Record\{DD4F8EE3-2676-3DCE-9BCB-76560174AE8D}\1.0.0.0" Name="Class" Value="Microsoft.Office.Interop.Excel.XlSaveAsAccessMode" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="Record\{DD4F8EE3-2676-3DCE-9BCB-76560174AE8D}\1.0.0.0" Name="Assembly" Value="CIMModelManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="Record\{DD4F8EE3-2676-3DCE-9BCB-76560174AE8D}\1.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+        <RegistryValue Root="HKCR" Key="Record\{DD4F8EE3-2676-3DCE-9BCB-76560174AE8D}\1.0.0.0" Name="CodeBase" Value="file:///[#CIMModelManager.dll]" Type="string" Action="write" />
+      </Component>
+
+      <Component Id='manregister' Guid='8020df5d-6bc2-4ee9-af6a-6634278d626a' Win64='yes'>
+        <File Id='manregister' Name='ManuallyRegister.reg'  Source='..\CIM Model Manager\ManuallyRegister.reg' KeyPath='yes'  ProcessorArchitecture='x64' />
+      </Component>
+      <Component Id='maninstall' Guid='9ece2f74-a995-461e-8a67-8580c9be3756' Win64='yes'>
+        <File Id='maninstall' Name='ManuallyInstall.bat'  Source='..\CIM Model Manager\ManuallyInstall.bat' KeyPath='yes'  ProcessorArchitecture='x64' />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
