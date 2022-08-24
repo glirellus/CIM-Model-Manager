@@ -1,5 +1,5 @@
 ﻿/*  Tool for performing model manager tasks in Enterprise Architect for the IEC CIM standard
-    Copyright (C) 2018  Martin E. Miller
+    Copyright (C) 2022  Martin E. Miller
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -25,7 +25,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Office.Interop.Excel;
 
 namespace CIMModelManager
 {
@@ -174,9 +173,9 @@ namespace CIMModelManager
             saveFileDialog1.CheckFileExists = false;
             saveFileDialog1.CheckPathExists = true;
             saveFileDialog1.CreatePrompt = false;
-            saveFileDialog1.DefaultExt = ".xlsx";
+            saveFileDialog1.DefaultExt = ".csv";
             saveFileDialog1.DereferenceLinks = true;
-            saveFileDialog1.Filter = "Excel files (*.xlsx)|.xlsx";
+            saveFileDialog1.Filter = "Spreadsheet files (*.csv)|.csv";
             saveFileDialog1.FilterIndex = 1;
             saveFileDialog1.OverwritePrompt = true;
             saveFileDialog1.RestoreDirectory = true;
@@ -184,31 +183,20 @@ namespace CIMModelManager
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 System.Windows.Forms.Application.UseWaitCursor = true;
-                Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
-                excelApp.Visible = false;
-                excelApp.DisplayAlerts = false;
-                Workbook wb = excelApp.Workbooks.Add(Type.Missing);
-                Worksheet ws = (Worksheet)wb.ActiveSheet;
-                ws.Name = "Missing Descriptions";
-
-                ws.Cells[1, 1] = "Type";
-
-                ws.Cells[1, 2] = "Path";
-
-                ws.Cells[1, 3] = "Name";
-                int i = 0;
-                foreach (var x in m_SortedDescriptions.Values)
+                using (var outputFile = new System.IO.StreamWriter(saveFileDialog1.FileName))
                 {
-                    i++;
-                    ws.Cells[i + 1, 1] = x.Type;
-                    ws.Cells[i + 1, 2] = x.Path;
-                    ws.Cells[i + 1, 3] = x.Name;
+                    outputFile.WriteLine("Missing Descriptions");
+                    outputFile.WriteLine("Type,Path,Name");
+                    int i = 0;
+                    foreach (var x in m_SortedDescriptions.Values)
+                    {
+                        i++;
+                        outputFile.Write("\"" + x.Type?.Replace("\"", "\"\"") + "\",");
+                        outputFile.Write("\"" + x.Path?.Replace("\"", "\"\"") + "\",");
+                        outputFile.WriteLine("\"" + x.Name?.Replace("\"", "\"\"") + "\"");
+                    }
                 }
-
-                wb.SaveAs(saveFileDialog1.FileName);
-                wb.Close();
-                excelApp.Quit();
-                System.Windows.Forms.Application.UseWaitCursor = true;
+                System.Windows.Forms.Application.UseWaitCursor = false;
                 this.Close();
             }
         }

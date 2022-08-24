@@ -88,11 +88,11 @@
             this.cmdSave.AutoSize = true;
             this.cmdSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.cmdSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdSave.Location = new System.Drawing.Point(711, 395);
+            this.cmdSave.Location = new System.Drawing.Point(716, 395);
             this.cmdSave.Name = "cmdSave";
-            this.cmdSave.Size = new System.Drawing.Size(86, 23);
+            this.cmdSave.Size = new System.Drawing.Size(81, 23);
             this.cmdSave.TabIndex = 2;
-            this.cmdSave.Text = "Save As Excel";
+            this.cmdSave.Text = "Save As CSV";
             this.cmdSave.UseVisualStyleBackColor = true;
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 

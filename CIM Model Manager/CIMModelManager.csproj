@@ -21,7 +21,7 @@
     <StartupObject />
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>0.0</OldToolsVersion>
@@ -75,9 +75,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -102,6 +99,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MissingDescriptionInfo.cs" />
+    <Compile Include="DoesNotInheritFromIdentifiedObject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DoesNotInheritFromIdentifiedObject.Designer.cs">
+      <DependentUpon>DoesNotInheritFromIdentifiedObject.cs</DependentUpon>
+    </Compile>
     <Compile Include="MissingDescriptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +116,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DoesNotInheritFromIdentifiedObject.resx">
+      <DependentUpon>DoesNotInheritFromIdentifiedObject.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MissingDescriptions.resx">
       <DependentUpon>MissingDescriptions.cs</DependentUpon>
     </EmbeddedResource>

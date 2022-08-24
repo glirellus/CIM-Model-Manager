@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/CIM Model Manager/obj/Debug
+/.vs
+/CIM Model Manager/bin
+/CIM Model Manager/obj

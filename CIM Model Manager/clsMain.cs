@@ -27,6 +27,7 @@ namespace CIMModelManager
     {
         private const string M_ToolName = "-&CIM Model Manager";
         private const string M_MenuFindEmptyDescriptions = "Find all empty normative &descriptions";
+        private const string M_MenuFindUnidentified = "Find all classes that do not inherit from &IdentifiedObject";
         private const string M_MenuFindSelectedEmptyDescriptions = "Find empty descriptions within selected package";
         private const string M_MenuSpacer = "-";
 
@@ -44,10 +45,10 @@ namespace CIMModelManager
         public object EA_GetMenuItems(EA.Repository Repository, string Location, string MenuName)
         {
             /* nb example of out parameter:
-			object item;
-			EA.ObjectType t = Repository.GetTreeSelectedItem(out item);
-			EA.Package r = (EA.Package) item;
-			*/
+            object item;
+            EA.ObjectType t = Repository.GetTreeSelectedItem(out item);
+            EA.Package r = (EA.Package) item;
+            */
 
             switch (MenuName)
             {
@@ -55,7 +56,7 @@ namespace CIMModelManager
                     return M_ToolName;
 
                 case M_ToolName:
-                    string[] ar = { M_MenuFindEmptyDescriptions };
+                    string[] ar = { M_MenuFindEmptyDescriptions, M_MenuFindUnidentified };
                     return ar;
             }
             return "";
@@ -94,6 +95,13 @@ namespace CIMModelManager
                     g.m_Repository = Repository;
                     g.Show();
                     g.Calculate();
+                    break;
+
+                case M_MenuFindUnidentified:
+                    var h = new DoesNotInheritFromIdentifiedObject();
+                    h.m_Repository = Repository;
+                    h.Show();
+                    h.Calculate();
                     break;
             }
         }
